@@ -17,7 +17,7 @@ class CreateAccountsTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->bigInteger('balance');
+            $table->bigInteger('balance')->default(0);
             $table->foreignId('account_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
