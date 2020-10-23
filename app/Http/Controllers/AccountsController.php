@@ -14,7 +14,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return response()->json([['foo' => 'bar']]);
+        return response()->json(Account::with('accountType')->get());
     }
 
     /**

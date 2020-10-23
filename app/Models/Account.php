@@ -10,4 +10,11 @@ class Account extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'code', 'account_type_id'];
+
+    protected $hidden = ['account_type_id'];
+
+    public function accountType()
+    {
+        return $this->belongsTo(AccountType::class);
+    }
 }
