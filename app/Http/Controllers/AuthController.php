@@ -9,12 +9,14 @@ use Validator;
 
 class AuthController extends Controller
 {
+    private $ttl;
     /**
      * @return void
      */
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['register', 'login']]);
+        $this->ttl = config('jwt.ttl');
     }
 
     /**
@@ -56,7 +58,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = auth()->setTTL($this->ttl)->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -92,7 +94,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth()->setTTL($this->ttl)->refresh());
     }
 
     /**

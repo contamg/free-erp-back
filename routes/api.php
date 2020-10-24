@@ -21,7 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    'middleware' => 'api',
     'prefix' => 'auth',
 ], function($router) {
     $router->post('register', [AuthController::class, 'register'])->name('register');
